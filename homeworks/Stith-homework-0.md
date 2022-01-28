@@ -1,4 +1,4 @@
-# Homework 0 - Unordered Lists with Nodes
+# Homework 0 - Set Size Lists with Arrays and Nodes
 
 ```
 2/c Joram Stith
@@ -28,18 +28,19 @@ The sort symbol <= can be replaced by >= or any other function that
 determines ordering in the keys.
 An unordered does not have this restriction.
 ```
-| Functions         | Definitions |
-| :-------------    | :------------- |
-| access(L, i) 		  | returns xi |
-| length(L)  	      |	returns n |
-| concat(L1, L2)	  |	returns a new list with L2 concatenated on to L1 |
-| createEmptyList() |	returns a newly created empty list |
-| isEmptyList(L)		|returns true if L is empty and false if it is not |
-| searchFor(L, key)	|returns i where the key of xi = key |
-| remove(L, i)		  |returns a list with xi removed the old xi+1 is now xi, etc. |
-| inserti(L, i, x)	|returns a list with x inserted as xi the old xi is now xi+1, etc. |
-| insert(L, x)		  | returns a list with x inserted anywhere if L is unordered at the proper location (say xi) if L is ordered the old xi is now xi+1, etc. |
-sort(L)			        | returns the list in sorted order |
+
+| Functions         | Definitions                                                                                                                            |
+|:----------------- |:-------------------------------------------------------------------------------------------------------------------------------------- |
+| access(L, i)      | returns xi                                                                                                                             |
+| length(L)         | returns n                                                                                                                              |
+| concat(L1, L2)    | returns a new list with L2 concatenated on to L1                                                                                       |
+| createEmptyList() | returns a newly created empty list                                                                                                     |
+| isEmptyList(L)    | returns true if L is empty and false if it is not                                                                                      |
+| searchFor(L, key) | returns i where the key of xi = key                                                                                                    |
+| remove(L, i)      | returns a list with xi removed the old xi+1 is now xi, etc.                                                                            |
+| inserti(L, i, x)  | returns a list with x inserted as xi the old xi is now xi+1, etc.                                                                      |
+| insert(L, x)      | returns a list with x inserted anywhere if L is unordered at the proper location (say xi) if L is ordered the old xi is now xi+1, etc. |
+| sort(L)           | returns the list in sorted order                                                                                                       |
 
 ## Solution
 
@@ -72,6 +73,7 @@ This function is unchanged if the list is ordered or not, because the values of 
 _returns a new list with L2 concatenated on to L1_
 
 To concat two lists, the function must receive pointers to two lists in memory. Then, the function must do the following:
+
 - Determine how much space is left in the array holding L1
 - Create a new array in memory
 - Copy all values from L1 to the new list
@@ -100,6 +102,7 @@ This function behaves similarly to parts of the concat function. Given a pointer
 _returns i where the key of xi = key_
 
 This function must do the following:
+
 - Start at the lowest memory address in the array's space
 - Go one array block at a time comparing the value in the block to the pointed at value from the function (L), advancing `node size` bits each time
 - When the function finds the first instance where L is equal to the stored value, return `(largest attempted memory address - base memory address) / node size`.
@@ -113,6 +116,7 @@ This function can be implemented differently if the list is ordered. Rather than
 _returns a list with xi removed the old xi+1 is now xi, etc._
 
 This function must do the following:
+
 - Jump to `base memory address + node size * i`
 - Remove all data from that entry
 - Use the length() function to find the end of the array
@@ -125,6 +129,7 @@ This function must do the following:
 _returns a list with x inserted as xi the old xi is now xi+1, etc._
 
 This function is not dependent on if the list is ordered or not. The function must do the following:
+
 - jump to the memory location `base memory address + node size * i`
 - copy the current node there to a temporary location
 - replace the current node with x
@@ -141,6 +146,7 @@ _returns a list with x inserted anywhere if L is unordered at the proper locatio
 #### Unordered
 
 The function can do the following:
+
 - Call the length() function to figure out where the end of the list is in the array
 - Go to the memory address `base memory address + 100 * (length() + 1)`
 - Insert x into that memory address (if it's not 100)
@@ -149,6 +155,7 @@ The function can do the following:
 #### Ordered
 
 The function can do the following:
+
 - Using the same process as searchFor(), start at the beginning of the array and compare each value to L.
 - As soon as there is a value larger than L, set a variable i to `(current memory address - base memory address) / node size) - 1`
 - Call the inserti() function using L, i, and x.
