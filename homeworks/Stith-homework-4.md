@@ -44,7 +44,7 @@ isEmptyTree(T)	   returns true if T is empty and false if it is not
 | insert(T, p) | returns T with the node pointed to by p added in the proper location |
 | search(T, key) | returns a pointer to the node in T that has a key that matches key, returns null if the node is not found |
 | traverse(T) | prints the contents of T in order. |
-| isEmptyTree(s) | returns true if T is empty and false if it is not |
+| isEmptyTree(T) | returns true if T is empty and false if it is not |
 
 ## Variable Size with Pointers and Nodes
 
@@ -62,8 +62,9 @@ Like the declaration paragraph, create a node with a value of null, and two poin
 def createEmptyTree():
 	create node trunk
 	trunk.value = null
-	pointer trunk.a = null
-	pointer trunk.b = null
+  # a and b are the pointers to the next value
+  trunk.a = null
+	trunk.b = null
 	return trunk
 ```
 
@@ -71,239 +72,155 @@ def createEmptyTree():
 
 _removes the node pointed to by p from the tree T_
 
-
-
-```python
-def front(Q):
-	return arr[t-n]
-```
-
-### dequeue(Q)
-
-_returns and removes the first node of Q_
-
-To dequeue a value, use the front(Q) function to find and store the value getting returned, then decrement `n` by one to indicate that there is one less array slot currently holding a relevant value. `t` remains unchanged.
+To remove a node, you need to find the node above it and re-assign it's pointer. This can be done in O(lg[n]) using a binary search tree. Start at the trunk, and perform a greater than or less than comparison to each value, traversing the appropriate branch (pointer) until you reach a value pointing to p, then change that pointer to null.
 
 ```python
-def dequeue(Q):
-	value = front(Q)
-	if(value != NULL):
-		n -= 1
-	return value
+def delete(T, p):
+  current_node = T.trunk
+  while True:
+    if current_node.a == p:
+      current_node.a = null
+      return
+    if current_node.b == p:
+      current_node.b = null
+      return
+    if p > current_node:
+      current_node = current_node.a
+    elif p < current_node:
+      current_node = current_node.b
+    else:
+      # Edge case, p is the trunk
+      T = null
+      return
 ```
 
-### enqueue(Q,x)
+### insert(T, p)
 
-_returns Q with x added as the last element_
+_returns T with the node pointed to by p added in the proper location_
 
-To add an element to a queue, we add the element to the current value of `t`, the total number of entries so far. Then, we increment both `t` and `n`, and reduce both by 100 if they are both larger than 100.
+To insert a value, we follow the same procedure as deleting to find the appropriate location, but rather than set the pointer to null we set it to the passed value p.
 
 ```python
-def enqueue(Q, x):
-	arr[t] = x
-	t += 1
-	n += 1
-	if(t > 100 and n > 100):
-		t -= 100
-		n -= 100
+def insert(T, p):
+  current_node = T.trunk
+  while True:
+    if p > current_node and p < current_node.a:
+      current_node.b = p
+      return
+    elif p < current_node and p > current_node.b:
+      current_node.a = p
+      return
+    elif p > current_node:
+      current_node = current_node.a
+    elif p < current_node:
+      current_node = current_node.b
+    else:
+      # Edge case, p is equal to a value that already exists
+      return
 ```
 
-### isEmptyQueue(Q)
+### search(T, key)
+
+_returns a pointer to the node in T that has a key that matches key, returns null if the node is not found_
+
+To search for a value, we will once again go through the tree comparing each value for greater than or less than the key. Once we find the key, we return a pointer to that key.
+
+```python
+def search(T, key):
+  current_node = T.trunk
+  while True:
+    if current_node.a == key:
+      return current_node.a
+    if current_node.b == key:
+      return current_node.b
+
+    if key > current_node:
+      current_node = current_node.a
+    elif key < current_node:
+      current_node = current_node.b
+    else:
+      # Edge case, p is equal to current node
+      return T
+```
+
+### traverse(T)
+
+_prints the contents of T in order._
+
+To print all of the contents of T in order, We can use a recursive loop to go through each value in the tree one at a time. This function is necessarily >= O(n) because n values get accessed. I'm not sure this is the *best* way to do this, but I wanted to make something work with recrusion so here's my best shot (consider it a make up for my poor attempt at the towers of hanoi problem).
+
+```python
+def printNode(T, p):
+  if(p.a == null and p.b == null):
+    print(p)
+    return
+  elif(p.a == null):
+    return printNode(T, p.b)
+  elif(p.b == null):
+    return printNode(T, p.a)
+  else:
+    printNode(T, p.b)
+    return printNode(T, p.a)
+
+def traverse(T):
+  current_node = T.trunk
+  printNode(T, current_node)
+  return
+```
+
+### isEmptyTree(T)
 
 _returns true if queue is empty_
 
-To determine if a queue is empty, simple check if `n` is equal to zero.
+To determine if a queue is empty, simple check if the passed value of T is pointing to null.
 
 ```python
-def isEmptyQueue(s):
-	return n == 0
+def isEmptyTree(T):
+	return T == null
 ```
 
 ### Other Notes
 
-I had an intricate plan at first to solve this using three variables: the center of the array, a certain distance away, and a bit flipped to indicate direction. After writing everything out on the wipe board, I realized that all I had created was another way to do stacks. So, back to the drawing board (literally) to get this iteration.
+A lot of these functions feel like they're not O(lg[n]), and they wouldn't be if elements were unsorted. But, since all items in the binary tree are necessarily ordered and sorted, we can use loops and still achieve O(lg[n]).
 
-## Variable Size with Pointers and Nodes
+## Set Size with Arrays
 
-### Declaration
+### Methodology
 
-To declare a pointer based queue, you'll start by creating an empty node with a pointer that will eventually point to the next node, but for now it points to null. We will also use two reference pointers, head and tail.
+To implement a binary tree of a set size with an array, you would follow the same logic, just with much more confusing indexing. I would put the trunk node at the start of the array, then we know the next two array values are the children on that trunk. Then, we know the next four array values are the children of those trunks, etc.
 
-### createEmptyQueue()
-
-_returns a newly created empty queue_
-
-Like the declaration paragraph, start by creating an empty node with a pointer pointing to null. Next, create two other pointers, `head` and `tail` that both point to that empty node.
-
-```python
-def createEmptyQueue():
-	create empty node
-	node.next = null
-	head = node
-	tail = node
+```
+[TRUNK, Branch0, Branch1, Branch00, Branch01, Branch10, Branch11, Branch000, Branch001, Branch010, Branch 011, ...]
 ```
 
-### front(Q)
+These values could be accessed by using `pow(2,n)` to see how far down the array you must traverse to get to the next node, but you would be jumping from high values to low values very often, and it would not be more efficient than a node and pointer based system.
 
-_returns the first node of Q_
+### Considering the Functions
 
-To return the first node of Q, simple return the value currently pointed to by the tail pointer.
+**createEmptyTree()**
 
-```python
-def front(Q):
-	return tail
-```
+Declare the array of the set size (128 if we limit to 2^7 like the instructions say).
 
-### dequeue(Q)
+**delete(T, p)**
 
-_returns and removes the first node of Q_
+Traverse the binary tree with the same methodology as with nodes (get to an element, compare if the element is greater or less than the passed value, then jump to the according child node). Use an index-ish variable `n` to count how many levels deep in the tree you are, then you can use `pow(2,n) + offset_from_comparison` to get to the next set of child nodes to compare. Once you reach the index that gets deleted, set its value to null.
 
-To dequeue a value, use the front(Q) method to get the value that needs to be returned. To "remove" the element from the queue, change the `tail` pointer to the node pointed to by `tail`'s current location.
+**insert(T, p)**
 
-```python
-def dequeue(Q):
-	value = front(Q)
-	if(value != NULL):
-		tail = tail.next
-	return value
-```
+Follow the same process as the delete function, but instead of setting the value in the array to null you set it to the passed value p.
 
-### enqueue(Q,x)
+**search(T, key)**
 
-_returns Q with x added as the last element_
+Not shockingly, search follows a similar function, too. However, when you find the key (should be done in O(lg[n])), return the index of the array rather than the value at that index.
 
-To add an element to a queue, access the furthest node along in the chain using the head pointer, then set `head.next` to the new node being added (whose pointer will point to null). Then, update the head pointer to `head.next` to reference the new newest node.
+**traverse(T)**
 
-```python
-def enqueue(Q, x):
-	head.next = X
-	head = head.next
-```
+This function will behave similarly to the pointer based function except rather than jumping nodes it will jump values of the array. Since it's set size, you don't need the recursive function, you can use a for loop with 7 iterations and use `pow(2,7) + offset` to get to the children of nodes.
 
-### isEmptyQueue(Q)
+**isEmptyTree(T)**
 
-_returns true if queue is empty_
-
-To determine if a queue is empty, simple check if the tail pointer is pointing to null (the head pointer will actually never point to null because it doesn't get changed when a value is removed, but the tail does).
-
-```python
-def isEmptyQueue(s):
-	return tail == null
-```
+Return true if T is null.
 
 ### Other Notes
 
-Queues seem a lot easier to handle with an O(1) notation if you use two pointers. Conceptually, it's much simpler than using arrays where I had to play with subtraction and essentially modulus to get a working system.
-
-## Hand-Written Notes
-
-![](assets/hw3_array.jpg)
-
-![](assets/hw3_nodes.jpg)
-
-![](assets/hw3_idea.jpg)
-
-## Problem 3b
-
-```
-Write the recursive function:
-towers(x,y,n) moves n disks from peg x to peg y. You can use the predefined functions move(x,y), which moves one disk from peg x to peg y, and otherPeg(x,y), which returns the other peg besides x and y. So a call to otherPeg(A,B) would return C.
-```
-
-### Hard Coded
-
-```python
-def towers(A,C,3):
-	move(A,B)
-	move(A,C)
-	move(B,C)
-
-	move(A,B)
-	move(C,A)
-	move(C,B)
-
-	move(A,B)
-	move(A,C)
-	move(B,C)
-
-	move(A,B)
-	move(A,C)
-	move(B,C)
-```
-
-### Patterns
-
-I look at these patterns like rhyme schemes, splitting the towers by where they start and where they're going. The start follow this pattern:
-
-```
-Pegs:   AAB, ACC, AAB, BCB, AAB
-Tiles:  010, 201, 030, 103, 010
-```
-
-while the ends follow this pattern:
-
-```
-Pegs:   BCC, BAA, BCC, AAC, BCC
-Tiles:  122, 101, 122, 002, 122
-```
-
-Unfortunately, neither of these follow an obvious pattern to turn into recursion. I struggled with this problem for a while, and unfortunately I didn't come to a great solution that works universally.
-
-```python
-def towers(A,B,2):
-	move(A, otherPeg(A,B))
-	move(A, B)
-	move(otherPeg(A,B), B)
-
-def towers(A,B,3):
-	move(A, B)
-	move(A, otherPeg(A,B))
-	move(B, otherPeg(A,B))
-
-	move(A,B)
-	move(otherPeg(A,B), A)
-	move(otherPeg(A,B), B)
-	move(A,B)
-```
-
-The process is pretty much the same for two and three pegs except you change where the first one goes if the number to move is even or odd. Unfortunately, not sure how to put that into a recursive function.
-
-The number of steps needed for small numbers seem to be `2 ^ (num things moved) - 1` for three pegs, which I also don't see playing nicely into recursion.
-
-```python
-def towers(A,C,3):
-	move(A,C)
-	move(A,B)
-	move(B,C)
-
-	move(A,C)
-	move(B,A)
-	move(B,C)
-	move(A,C)
-```
-
-After banging my head against this one for a while, time expires and I don't have a great solution. However, if it did work mine would look something like this:
-
-```python
-def towers(A,B,x):
-	if x == 1:
-		move(A, otherPeg(A,B))
-		move(A, B)
-		move(otherPeg(A,B), B)
-		return
-	elif (x // 2 != 0):
-		move(A, B)
-		move(A, otherPeg(A,B))
-		move(B, otherPeg(A,B))
-	return towers(A,B,x-1)
-```
-
-### Other Notes
-
-I'll be very interested to see the solution to this one. I remember studying these in discrete mathematics and the difficulty of solving them increasing exponentially, so I'm curious to see how that works with code.
-
-### Hand-Written Notes
-
-![](assets/hw3_tower1.jpg)
-
-![](assets/hw3_tower2.jpg)
+This does not seem like a very practical way to implement binary trees, and I assume it's not used much in modern computing (since arrays are really just sets of pointers when you get deep enough anyway). Interesting assignment, I like that things are getting more complex!
