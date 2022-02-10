@@ -50,26 +50,28 @@ isEmptyTree(T)	   returns true if T is empty and false if it is not
 
 ### Declaration
 
-To declare an array based queue, begin by creating an array of nodes with length 100, as well as two variables. I'm not sure this is correct, but I love the idea so we're going with it. The two variables will be `number = n` and `total = t`.
+To declare a binary tree, you start with an empty pointer. Once the first node is created, the pointer representing the tree object will point to the first node (the trunk). That node will be populated with a value and encapsulated with two other pointers.
 
-### createEmptyQueue()
+### createEmptyTree()
 
-_returns a newly created empty queue_
+_returns a newly created empty binary tree_
 
-Like the declaration paragraph, create your array of size 100 and set the variables `n = 0` and `t = 0`. `n` will refer to the number of array slots currently in use holding values and `t` will refer to the total number of entries that have been used at some point. These numbers will both get large over time, but they can both be put `% len(arr)` safely, as long as they get decremented together.
+Like the declaration paragraph, create a node with a value of null, and two pointers with that node that also point to null.
 
 ```python
-def createEmptyQueue():
-	create node[100]
-	n = 0
-	t = 0
+def createEmptyTree():
+	create node trunk
+	trunk.value = null
+	pointer trunk.a = null
+	pointer trunk.b = null
+	return trunk
 ```
 
-### front(Q)
+### delete(T, p)
 
-_returns the first node of Q_
+_removes the node pointed to by p from the tree T_
 
-To return the first entered value, we find the current index in the array being used by subtracting n from t
+
 
 ```python
 def front(Q):
