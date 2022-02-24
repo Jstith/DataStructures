@@ -21,7 +21,7 @@ This additional information is provided about the definition of a dictionary and
 ```
 Dictionaries
 
-A Dictionary is a set S mde up of n elements: x0  x1  x2  x3 ... xn-1  that
+A Dictionary is a set S made up of n elements: x0  x1  x2  x3 ... xn-1  that
 has the following functions.
 
 Functions:
