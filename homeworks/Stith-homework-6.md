@@ -1,4 +1,4 @@
-# Homework 7 - Priority Queues
+# Homework 6 - Priority Queues
 
 ```
 2/c Joram Stith
@@ -7,7 +7,7 @@ Dr. Parker
 17FEB2022
 ```
 
-## Problem 5
+## Problem 6
 
 ```
 Problem #6 due on 17 Feb.
