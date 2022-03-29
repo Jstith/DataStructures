@@ -3,6 +3,14 @@
 // Dr. Parker
 
 public class Node {
+  /**
+  * This class holds the necessary information for a student.
+  * All class level variables are private, with accessor and mutator functions available to modify them.
+  * @param inp_name     name of student (string)
+  * @param inp_ssn      ssn of student (int)
+  * @param inp_acid     academic id of student (optional, int)
+  * @param inp_compsci  incidates if student is a comp sci major (optional, bool)
+  */
 
   // Class level variables
   private String name;
@@ -10,11 +18,13 @@ public class Node {
   private int academic_id;
   private boolean comp_sci_student;
   private Node next;
+  private int key;
 
   // "Bare bones" constructor (name and SSN)
   public Node(String inp_name, int inp_ssn) {
       name = inp_name;
       social_security_num = inp_ssn;
+      key = getKey();
   }
 
   // Overloaded constructor (name, SSN, ac id, comp_sci_student)
@@ -23,6 +33,7 @@ public class Node {
       social_security_num = inp_ssn;
       academic_id = inp_acid;
       comp_sci_student = inp_compsci;
+      key = getKey();
   }
 
   // Mutator Methods:
@@ -60,9 +71,9 @@ public class Node {
   }
 
   // Accessor to get last 4 of SSN
-  public String getKey() {
+  public int getKey() {
     String value = Integer.toString(social_security_num);
-    return value.substring(value.length() - 4);
+    return Integer.parseInt(value.substring(value.length() - 4));
   }
 
   // toString method with basic information
