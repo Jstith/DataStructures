@@ -1,6 +1,7 @@
 // Joram Stith Unordered List Method
 // Data Structures
 // Dr. Parker
+// 29MAR2022
 
 public class List {
 
@@ -37,27 +38,31 @@ public class List {
     return null;
   }
 
+
+  // Holds a second pointer to the previous list element rather than checking one adead of the current
+  // Still in O(n), just has different edge case handling.
   public Node searchRemove(int key) {
     Node temp = head;
-    Node tail = null;
+    Node previous = null;
+
     while(temp != null) {
-      // Edge cases not addressed
       if(temp.getKey() == key) {
-        if(temp.getNext() == null && tail == null) {
+        if(temp.getNext() == null && previous == null) {
           head = null;
         }
         else if(temp.getNext() == null) {
-          tail.setNext(null);
+          previous.setNext(null);
         }
-        else if(tail == null) {
+        else if(previous == null) {
           head = head.getNext();
         }
         else {
-          tail.setNext(temp.getNext());
+          previous.setNext(temp.getNext());
         }
+        list_length -= 1;
         return temp;
       }
-      tail = temp;
+      previous = temp;
       temp = temp.getNext();
     }
     return null;
@@ -65,6 +70,7 @@ public class List {
 
   public String printList() {
     String builder = "";
+    builder += (Integer.toString(list_length) + "\n");
     Node temp = head;
     while(temp != null) {
       builder += Integer.toString(temp.getKey());

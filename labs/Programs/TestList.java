@@ -18,7 +18,6 @@ public class TestList {
 	a.insert(yNode);
 	a.insert(zNode);
 	a.insert(kNode);
-  System.out.println("printing list");
 	a.printList();
 	Node mNode = new Node("Mike", 723452237);
 	Node nNode = new Node("Nick", 734567857);

@@ -1,0 +1,75 @@
+4
+7856
+2234
+7890
+6789
+searchReturn
+Jane
+Jack
+Mike
+Nick
+length
+4
+list a
+4
+7856
+2234
+7890
+6789
+list b
+2
+7857
+2237
+list a
+4
+7856
+2234
+7890
+6789
+searchReturn 7890
+Student Node with name Joe, SSN 934567890
+searchRemove7890
+searchReturn 7890
+null
+3
+7856
+2234
+6789
+searchRemove6789
+2
+7856
+2234
+searchRemove7856
+1
+2234
+insert6788
+2
+6788
+2234
+insert7898
+3
+7898
+6788
+2234
+insert2238
+4
+2238
+7898
+6788
+2234
+isEmptyList = false
+length a: 4
+insert z x y in c
+3
+7890
+6789
+2234
+searchRemove x y z in c
+2
+7890
+2234
+1
+2234
+0
+isEmptyList = true
+length = 0
