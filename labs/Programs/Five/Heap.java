@@ -1,3 +1,8 @@
+// Joram Stith
+// Data Structures
+// Dr. Parker
+// 18 April 2022
+
 public class Heap {
 
 	// Class level varaibles used in the heap

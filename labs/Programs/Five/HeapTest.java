@@ -1,3 +1,8 @@
+// Joram Stith
+// Data Structures
+// Dr. Parker
+// 18 April 2022
+
 public class HeapTest {
   public static void main(String[] args) {
     System.out.println("Testing Heap Class (hold on to something).");
