@@ -2,7 +2,7 @@
 // Data Structures
 // Dr. Parker
 
-// MODIFIED FOR BST WITH TWO NEXT POINTERS, LEFT AND RIGHT
+// MODIFIED FOR HEAP WITH TWO NEXT POINTERS, LEFT AND RIGHT, AND PRIORITY
 
 public class Node {
   /**
@@ -21,21 +21,24 @@ public class Node {
   private boolean comp_sci_student;
   private Node left, right;
   private int key;
+  private int priority;
 
   // "Bare bones" constructor (name and SSN)
-  public Node(String inp_name, int inp_ssn) {
+  public Node(String inp_name, int inp_ssn, int inp_prio) {
       name = inp_name;
       social_security_num = inp_ssn;
       key = getKey();
+      priority = inp_prio;
   }
 
   // Overloaded constructor (name, SSN, ac id, comp_sci_student)
-  public Node(String inp_name, int inp_ssn, int inp_acid, boolean inp_compsci) {
+  public Node(String inp_name, int inp_ssn, int inp_acid, boolean inp_compsci, int inp_prio) {
       name = inp_name;
       social_security_num = inp_ssn;
       academic_id = inp_acid;
       comp_sci_student = inp_compsci;
       key = getKey();
+      priority = inp_prio;
   }
 
   // Mutator Methods:
@@ -65,6 +68,10 @@ public class Node {
   // Accessor method to return next node
   public Node getLeft() {
     return left;
+  }
+
+  public int getPriority() {
+    return priority;
   }
 
   // Accessor method to return next node
