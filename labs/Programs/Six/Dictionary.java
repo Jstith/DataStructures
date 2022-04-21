@@ -1,10 +1,15 @@
 public class Dictionary {
-	
-	private Node[][] dict_primary;
+
+	private List[] dict_primary;
 	private int n;
 
 	public Dictionary() {
-		dict_primary = new Node[7][7];
+		dict_primary = new List[7];
+
+		// For reasons unclear to me, instantiating the array doesn't do this
+		for(int x = 0; x < 7; x++) {
+			dict_primary[x] = new List();
+		}
 		n = 0;
 	}
 
@@ -39,44 +44,21 @@ public class Dictionary {
 
 		// Double hashes key
 		int indexAddress = hash(key);
-
-		int x = 0;
-		while(true) {
-			if(dict_primary[indexAddress][x++] == null) {
-				dict_primary[indexAddress][x-1] = inp_node;
-				break;
-			}
-		}
-
+		dict_primary[indexAddress].insert(inp_node);
+		n++;
 	}
 
 	public Node lookUp(int inp_key) {
 		int indexAddress = hash(inp_key);
-		int x = 0;
-		while(true) {
-			if(dict_primary[indexAddress][x] != null) {
-				if(dict_primary[indexAddress][x].getKey() == inp_key) {
-					return dict_primary[indexAddress][x];
-				}
-			}
-			x++;
-			if(x == dict_primary[indexAddress].length) {
-				return null;
-			}
-		}
+		Node response = dict_primary[indexAddress].searchReturn(inp_key);
+		return response;
 	}
 
 	public void delete(int inp_key) {
 		int indexAddress = hash(inp_key);
-		int x = 0;
-		while(true) {
-			if(dict_primary[indexAddress][x] != null) {
-				if(dict_primary[indexAddress][x].getKey() == inp_key) {
-					dict_primary[indexAddress][x] = null;
-					return;
-				}
-			}
-			x++;
+		Node result = dict_primary[indexAddress].searchRemove(inp_key);
+		if(result != null) {
+			n--;
 		}
 	}
 
@@ -84,14 +66,8 @@ public class Dictionary {
 		System.out.println("Printing Dictionary:");
 		for(int x = 0; x < 7; x++) {
 			System.out.print(Integer.toString(x) + ": ");
-			for(int y = 0; y < 7; y++) {
-				if(dict_primary[x][y] != null) {
-					System.out.print(dict_primary[x][y].getKey());
-					System.out.print(" ");
-				}
-			}
+			dict_primary[x].printList();
 			System.out.println();
 		}
 	}
-
 }

@@ -1,0 +1,93 @@
+Adding Student Node with name Jane, SSN 111111111
+Adding Student Node with name Joe, SSN 222222222
+Adding Student Node with name Jack, SSN 333333333
+Adding Student Node with name Jill, SSN 444444444
+Adding Student Node with name Joram, SSN 555555555
+Adding Student Node with name James, SSN 666666666
+Adding Student Node with name Josh, SSN 777777777
+
+Printing Dictionary:
+0: 7777
+1: 4444
+2: 1111
+3: 5555
+4: 2222
+5: 6666
+6: 3333
+
+Adding Student Node with name Julia, SSN 888888888
+Adding Student Node with name Jackie, SSN 999999999
+Adding Student Node with name Jamison, SSN 123456789
+Adding Student Node with name Juliet, SSN 987654321
+Adding Student Node with name Jackson, SSN 123212321
+
+Printing Dictionary:
+0: 7777
+1: 6789 4444
+2: 8888 1111
+3: 5555
+4: 9999 2222
+5: 2321 4321 6666
+6: 3333
+
+Searching for: 1111
+Found: Student Node with name Jane, SSN 111111111
+
+Searching for: 8888
+Found: Student Node with name Julia, SSN 888888888
+
+Deleting: 1111
+
+Printing Dictionary:
+0: 7777
+1: 6789 4444
+2: 8888
+3: 5555
+4: 9999 2222
+5: 2321 4321 6666
+6: 3333
+
+Searching for: 1111
+Found: null
+
+Adding Student Node with name Jane, SSN 111111111
+
+Printing Dictionary:
+0: 7777
+1: 6789 4444
+2: 1111 8888
+3: 5555
+4: 9999 2222
+5: 2321 4321 6666
+6: 3333
+
+Deleting: 8888
+
+Searching for: 8888
+Found: null
+
+Printing Dictionary:
+0: 7777
+1: 6789 4444
+2: 1111
+3: 5555
+4: 9999 2222
+5: 2321 4321 6666
+6: 3333
+
+Removing a few other values...
+
+Deleting: 5555
+Deleting: 3333
+Deleting: 6666
+Deleting: 2321
+
+Printing Dictionary:
+0: 7777
+1: 6789 4444
+2: 1111
+3:
+4: 9999 2222
+5: 4321
+6:
+(way more fun than the heap.)
