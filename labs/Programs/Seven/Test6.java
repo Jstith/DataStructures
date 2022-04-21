@@ -8,7 +8,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.NumberFormatException;
 
-public class Test4 {
+// Import statements for reading input
+import java.util.Scanner;
+
+public class Test6 {
 
     public static String readInts(String fileName) {
 
@@ -46,7 +49,35 @@ public class Test4 {
 	}
 
 	public static void main(String[] args) {
-		String data = readInts("input.txt");
-		writeInts("output.txt", data);
+    Scanner keyboard = new Scanner(System.in);
+    String submission;
+    String builder = "";
+    while(true) {
+      try {
+        System.out.print("Please enter a name (or return to finish):\t");
+        submission = keyboard.nextLine();
+        if(submission.isEmpty()) {
+          System.out.println("Writing to 'output.txt'");
+          writeInts("output.txt", builder);
+          System.out.println("Quitting...");
+          System.exit(0);
+        }
+        else {
+          builder += submission;
+          builder += "\n";
+          System.out.print("Please enter a number:\t");
+          submission = keyboard.nextLine();
+          builder += Integer.toString(Integer.parseInt(submission) * 2);
+          builder += "\n";
+        }
+      }
+      catch(NumberFormatException e) {
+        System.out.println("Invalid input " + e);
+        System.out.println("Writing to 'output.txt'");
+        writeInts("output.txt", builder);
+        System.out.println("Quitting...");
+        System.exit(-1);
+      }
+    }
 	}
 }

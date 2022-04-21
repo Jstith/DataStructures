@@ -8,17 +8,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.NumberFormatException;
 
-public class Test4 {
+// Import statements for reading input
+import java.util.Scanner;
 
-    public static String readInts(String fileName) {
+public class Test7 {
 
-		String builder = new String();
+    public static String[] readInts(String fileName) {
+
+		String[] values = new String[5];
 	    try {
 	    	File inp_file = new File(fileName);
 	    	Scanner reader = new Scanner(inp_file);
-	    	while(reader.hasNextLine()) {
-	    		builder += Integer.toString((Integer.parseInt(reader.nextLine()) * 2));
-	    		builder += "\n";
+        for(int x = 0; x < 5; x++) {
+	    		values[x] = Integer.toString((Integer.parseInt(reader.nextLine()) * 2));
 	    	}
 	    	reader.close();
 	    }
@@ -28,15 +30,16 @@ public class Test4 {
 	    catch(NumberFormatException e) {
 	    	System.out.println("Invalid input " + e);
 	    }
-	    return builder;
+	    return values;
 	}
 
-	public static boolean writeInts(String fileName, String input) {
-
+	public static boolean writeInts(String fileName, String[] inputs) {
 		try {
 		    PrintWriter out = new PrintWriter(fileName);
-		    out.println(input);
-		    out.close();
+		    for(int x = 0; x < inputs.length; x++) {
+          out.println(inputs[x]);
+        }
+        out.close();
 		    return true;
 		}
 		catch(IOException e) {
@@ -46,7 +49,7 @@ public class Test4 {
 	}
 
 	public static void main(String[] args) {
-		String data = readInts("input.txt");
-		writeInts("output.txt", data);
+    String[] toWrite = readInts("file.txt");
+    writeInts("output.txt", toWrite);
 	}
 }
