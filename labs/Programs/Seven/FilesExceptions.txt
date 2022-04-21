@@ -1,0 +1,44 @@
+COM212 Reading/Writing Files and Exceptions
+
+0. Copy Test0.java from the web page.
+Run Test0.java 
+Comment out try & catch (plus the associated '{' and '}'), run it again and note the results.
+Return Test0.java to its original state.
+
+1. Create Test1.java from Test0.java
+> cp Test0.java Test1.java
+Modify Test1.java to use it to create a file called input.txt consisting of 3 integers.
+
+2. Create Test2.java from Test1.java
+Modify Test2.java to read the three integers from input.txt and write them to output.txt.
+
+3. Create Test3.java from Test2.java
+Modify Test3.java to use a loop to read input.txt and write to output.txt.
+Use a while loop with in.hasNextLine() to check for the end of file.
+Modify so that the output ints are double the input.
+Edit input.txt to try it with an improper input.
+Add another exception handler.
+
+4. Create Test4.java from Test3.java
+Rewrite Test4.java so that you are using a static method that recursively does your iteration.  
+Try it with a corrected input.txt.
+
+5. Create Test5.java from Test4.java
+Change Test5.java so that the user can enter the numbers.  
+Use an exception to stop when there is an invalid entry.
+Make sure you get a proper output on your correct entries.
+
+6. Create Test6.java from Test5.java
+Modify Test6.java so you can enter a name and number and the number still gets doubled.  
+Prompt the user for the name and number.  
+Stop the program when a return is entered at the name prompt.
+
+7. Create Test7.java from Test3.java
+Create a file named file.txt.
+Using emacs (text editor) enter 5 integers in a column.  
+Modify Test7.java so that if reads the five in, doubles each, and stores it in an array.  
+Then save the new array to file.txt.
+The result of running the program will be to double all the numbers in file.txt
+You can assume file.txt will always have 5 numbers.
+ 
+  
