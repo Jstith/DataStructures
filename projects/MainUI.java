@@ -77,8 +77,6 @@ public class MainUI {
   }
 
   public void WebHash_Load() {
-    // Rather than clog up RAM with all files loaded at once, read file when function is entered and save and close when function exits.
-    // TODO: add function to save or laod all the files from text (for my work, load the hash data)
     System.out.println("Loading email hash database...");
     objHash = new WebHash();
     String line, emailUserName;
